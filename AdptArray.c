@@ -34,6 +34,7 @@ PAdptArray CreateAdptArray(COPY_FUNC copy , DEL_FUNC del , PRINT_FUNC print){
 
 //Need to revisit this code and review it again now fails on harry potter probably because of if cond
 Result SetAdptArrayAt(PAdptArray arr , int index  , PElement item){
+    if(!item){return FAIL;}
     if(index<0){return FAIL;}
     if(arr){
     if(index>arr->length){arr->length = index+1;}
