@@ -24,7 +24,7 @@ PAdptArray CreateAdptArray(COPY_FUNC copy , DEL_FUNC del , PRINT_FUNC print){
         adaptP->copyFunc=copy;
         adaptP->delFunc=del;
         adaptP->printFunc=print;
-        adaptP->length=INT_MIN;
+        adaptP->length=0;
         return adaptP;
     }
     else{
@@ -46,9 +46,8 @@ Result SetAdptArrayAt(PAdptArray arr , int index  , PElement item){
             memcpy(new_array,arr->itemArray,old*sizeof(PElement));
             free(arr->itemArray);
             arr->itemArray=new_array;
-            if(item){
+            if(!item){return SUCCESS;}
             arr->itemArray[index]=arr->copyFunc(item);
-            }
         }else{
             return FAIL;
         }
@@ -81,12 +80,15 @@ PElement GetAdptArrayAt(PAdptArray arr, int index){
     if(arr&&arr->itemArray){
     if(index < max && index >=0){
         if(arr->itemArray[index]){
-        return arr->copyFunc(arr->itemArray[index]);
+         return arr->copyFunc(arr->itemArray[index]);
+        }else{
+            return NULL;
         }
     }
 }
 else{return NULL;}
 }
+
 int GetAdptArraySize(PAdptArray arr){
     if(arr&&arr->itemArray){
     return arr->length;}
